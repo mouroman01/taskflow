@@ -1,0 +1,42 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: taskflow_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: sqlite:////app/data/taskflow.db
+    volumes:
+      - db_data:/app/data
+    networks:
+      - taskflow_net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: taskflow_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - taskflow_net
+
+volumes:
+  db_data:
+    name: taskflow_db_data
+
+networks:
+  taskflow_net:
+    name: taskflow_network
