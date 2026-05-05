@@ -1,5 +1,6 @@
 {
-  "latest_version": "8.0.0",
-  "download_url": "https://github.com/mouroman01/taskflow/releases/latest/download/TaskFlowV8_Setup.exe",
-  "notes": "Versão inicial do TaskFlow com base para atualização automática."
+  "latest_version": "9.0.1",
+  "download_url": "https://github.com/mouroman01/taskflow/releases/latest/download/TaskFlowV9_Setup.exe",
+  "notes": "Teste da atualização inteligente.",
+  "mandatory": false
 }
